@@ -36,6 +36,7 @@ public class DropManager : MonoBehaviour
 
 			if( linkedDrops.Count == 0 ) return;
 
+			//最初にlinkしたドロップで分け．バナナならバナナがひとつだけ入ってる．
 			switch( linkedDrops[0].GetDropType() )
 			{
 			case DropType.BANANA1:
@@ -46,6 +47,7 @@ public class DropManager : MonoBehaviour
 				break;
 
 			case DropType.GO:
+
 				while( linkedDrops.Count % 3 != 0 )
 				{
 					linkedDrops[linkedDrops.Count - 1].UnLink();
@@ -53,9 +55,13 @@ public class DropManager : MonoBehaviour
 				}
 				if( linkedDrops.Count == 0 ) return;
 				foreach( Drop drop in linkedDrops ) drop.Erase();
+
+				//ゴリラゴリラ消しならドロップひとつが1バナナになる
 				if( linkedDrops.Count == 6 ) linkedDrops[0].SetDropType( DropType.BANANA1 );
+				//ゴリラゴリラゴリラ消しならドロップひとつが3バナナになる
 				if( linkedDrops.Count >= 9 ) linkedDrops[0].SetDropType( DropType.BANANA3 );
 				linkedDrops.Clear();
+
 				break;
 			}
 
@@ -86,10 +92,11 @@ public class DropManager : MonoBehaviour
 
 	private void ExplodeBanana( Drop BananaDrop )
 	{
+		//バナナはバナナの周りを消す．バナナでバナナは消えない．
 		foreach( Drop drop in allDrops
-			.Where( x => !x.IsBanana() )
-			.Where( x => x.GetPosF().IsInCircle( BananaDrop.GetPosF(), BananaRadius ) ) )
-		{
+			.Where( x => x.GetPosF().IsInCircle( BananaDrop.GetPosF(), BananaRadius ) )
+            .Where( x => !x.IsBanana() )												 )
+        {
 			drop.Erase();
 		}
 		BananaDrop.ExplodeBanana();

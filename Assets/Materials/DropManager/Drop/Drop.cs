@@ -64,7 +64,7 @@ public class Drop : MonoBehaviour
 			}
 			return;
 		}
-		if( DropManager.GetLastLinkedDrop().IsLinkable( this ) )
+		else if( DropManager.GetLastLinkedDrop().IsLinkable( this ) )
 		{
 			DropManager.AddLinkedDrop( this );
 		}
@@ -98,22 +98,19 @@ public class Drop : MonoBehaviour
 		if( this.GetPosF().LengthSq( to.GetPosF() ) > LinkRadius ) return false;
 		if( DropManager.IsLinked( to ) ) return false;
 
-		if( this.dropType == DropType.GO && to.dropType == DropType.RI ||
-			this.dropType == DropType.RI && to.dropType == DropType.RA ||
-			this.dropType == DropType.RA && to.dropType == DropType.GO )
+		if( ( this.dropType == DropType.GO && to.dropType == DropType.RI ) ||
+			( this.dropType == DropType.RI && to.dropType == DropType.RA ) ||
+			( this.dropType == DropType.RA && to.dropType == DropType.GO )    )
 		{
 			return true;
 		}
-		else
-		{
-			return false;
-		}
+		else return false;
 
 	}
 
 	public void Erase()
 	{
-		this.transform.position = new Vector3( Random.Range( -1.0f, 1.0f ), 10 + Random.Range( -0.5f, 0.5f ) );
+		this.transform.position = new Vector3( Random.Range( -1.0f, 1.0f ), 9 + Random.Range( -0.5f, 0.5f ) );
 		this.Rigidbody2D.velocity = Vector2.zero;
 		flag_IsTouched = false;
 		Light.Stop();
@@ -164,7 +161,7 @@ public class Drop : MonoBehaviour
 
 	public bool IsBanana()
 	{
-		return dropType == DropType.BANANA1 ||
+		return	dropType == DropType.BANANA1 ||
 				dropType == DropType.BANANA2 || 
 				dropType == DropType.BANANA3;
     }
