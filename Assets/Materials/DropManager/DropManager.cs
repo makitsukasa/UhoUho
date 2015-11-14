@@ -9,14 +9,20 @@ public class DropManager : MonoBehaviour
 
 	public GameObject Drop_GameObject;
 
+	private SaveDataManager SaveDataManager;
+
 	private const float BananaRadius = 1.8f;
 
 	List<Drop> allDrops = new List<Drop>();
 	List<Drop> linkedDrops = new List<Drop>();
 
+	float startTime;
+
 	// Use this for initialization
 	void Start()
 	{
+
+		SaveDataManager = GameObject.Find( "SaveDataManager" ).GetComponent<SaveDataManager>();
 
 		for( int i = 0; i < 25; i++ )
 		{
@@ -24,6 +30,8 @@ public class DropManager : MonoBehaviour
 			GameObject hoge = Instantiate( Drop_GameObject, pos, new Quaternion() ) as GameObject;
 			allDrops.Add( hoge.GetComponent<Drop>() );
 		}
+
+		startTime = Time.time;
 
 	}
 
@@ -33,39 +41,74 @@ public class DropManager : MonoBehaviour
 
 		if( TouchUtil.GetTouch() == TouchUtil.TouchInfo.Ended )
 		{
-
-			if( linkedDrops.Count == 0 ) return;
-
-			//最初にlinkしたドロップで分け．バナナならバナナがひとつだけ入ってる．
-			switch( linkedDrops[0].GetDropType() )
-			{
-			case DropType.BANANA1:
-			case DropType.BANANA2:
-			case DropType.BANANA3:
-				ExplodeBanana( linkedDrops[0] );
-				linkedDrops.Clear();
-				break;
-
-			case DropType.GO:
-
-				while( linkedDrops.Count % 3 != 0 )
-				{
-					linkedDrops[linkedDrops.Count - 1].UnLink();
-					linkedDrops.RemoveAt( linkedDrops.Count - 1 );
-				}
-				if( linkedDrops.Count == 0 ) return;
-				foreach( Drop drop in linkedDrops ) drop.Erase();
-
-				//ゴリラゴリラ消しならドロップひとつが1バナナになる
-				if( linkedDrops.Count == 6 ) linkedDrops[0].SetDropType( DropType.BANANA1 );
-				//ゴリラゴリラゴリラ消しならドロップひとつが3バナナになる
-				if( linkedDrops.Count >= 9 ) linkedDrops[0].SetDropType( DropType.BANANA3 );
-				linkedDrops.Clear();
-
-				break;
-			}
-
+			Erase();
 		}
+
+	}
+
+	public void Erase()
+	{
+		if( linkedDrops.Count == 0 ) return;
+
+		//最初にlinkしたドロップで分け．バナナならバナナがひとつだけ入ってる．
+		switch( linkedDrops[0].GetDropType() )
+		{
+		case DropType.BANANA1:
+		case DropType.BANANA2:
+		case DropType.BANANA3:
+			ExplodeBanana( linkedDrops[0] );
+			linkedDrops.Clear();
+			break;
+
+		case DropType.GO:
+			Erase_Normal( linkedDrops );
+			linkedDrops.Clear();
+			break;
+		}
+
+	}
+
+	private void Erase_Normal( List<Drop> list )
+	{
+		while( list.Count % 3 != 0 )
+		{
+			list[list.Count - 1].UnLink();
+			list.RemoveAt( list.Count - 1 );
+		}
+
+		if( list.Count == 0 ) return;
+
+		foreach( Drop drop in list )
+		{
+			drop.Erase();
+			SaveDataManager.Add( SaveDataManager.Key.CharNum );
+		}
+
+		switch( list.Count )
+		{
+		case 3:
+			SaveDataManager.Add( SaveDataManager.Key.Gorilla1Num );
+			break;
+		case 6:
+			SaveDataManager.Add( SaveDataManager.Key.Gorilla2Num );
+			break;
+		case 9:
+			SaveDataManager.Add( SaveDataManager.Key.Gorilla3Num );
+			break;
+		case 12:
+			SaveDataManager.Add( SaveDataManager.Key.Gorilla4Num );
+			break;
+
+		//over 15
+		default:
+			SaveDataManager.Add( SaveDataManager.Key.Gorilla5Num );
+			break;
+		}
+
+		//ゴリラゴリラ消しならドロップひとつが1バナナになる
+		if( list.Count == 6 ) list[0].SetDropType( DropType.BANANA1 );
+		//ゴリラゴリラゴリラ消しならドロップひとつが3バナナになる
+		if( list.Count >= 9 ) list[0].SetDropType( DropType.BANANA3 );
 
 	}
 
@@ -98,13 +141,24 @@ public class DropManager : MonoBehaviour
             .Where( x => !x.IsBanana() )												 )
         {
 			drop.Erase();
+			SaveDataManager.Add( SaveDataManager.Key.CharNum );
 		}
 		BananaDrop.ExplodeBanana();
+		SaveDataManager.Add( SaveDataManager.Key.BananaNum );
 	}
 
 	public void ClearAll()
 	{
 		foreach( Drop drop in allDrops ) drop.Erase();
+		Debug.Log( "PlayerPrefs CharNum" + SaveDataManager.Get( SaveDataManager.Key.CharNum ) + 
+			", PlayTime" + SaveDataManager.Get(SaveDataManager.Key.PlayTime ) );
+	}
+
+	void OnDestroy()
+	{
+		SaveDataManager.Add( SaveDataManager.Key.PlayNum );
+		SaveDataManager.Add( SaveDataManager.Key.PlayTime, (int)(Time.time - startTime ) );
+		SaveDataManager.Save();
 	}
 
 }
