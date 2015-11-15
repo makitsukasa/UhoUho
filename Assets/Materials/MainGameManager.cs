@@ -12,6 +12,10 @@ public class MainGameManager : MonoBehaviour
 	Text CurrentValText;
 	Text CurrentValText_Subscription;
 
+	SaveDataManager SaveDataManager;
+
+	int currentVal;
+
 	float startTime;
 
 	string GetSubscription( SaveDataManager.GameMode GameMode )
@@ -25,13 +29,15 @@ public class MainGameManager : MonoBehaviour
 			"いま\nバナナ",
 			""
 		};
-        return text[(int)GameMode];
+		return text[(int)GameMode];
 	}
 
 	// Use this for initialization
 	void Start()
 	{
+		SaveDataManager = GameObject.Find( "SaveDataManager" ).GetComponent<SaveDataManager>();
 		TimeText = GameObject.Find( "TimeText" ).GetComponent<Text>();
+		CurrentValText = GameObject.Find( "CurrentValText" ).GetComponent<Text>();
 		startTime = Time.time;
 		CurrentValText_Subscription = GameObject.Find( "CurrentValText_Subscription" ).GetComponent<Text>();
 		CurrentValText_Subscription.text = GetSubscription( SaveDataManager.GetGameMode() );
@@ -40,12 +46,19 @@ public class MainGameManager : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		TimeText.text = ( (int)( TimeLimit + startTime - Time.time ) ).ToString();
-		if( Time.time - startTime >= TimeLimit )
+		if( SaveDataManager.GetGameMode() == SaveDataManager.GameMode.Chars )
 		{
-			Application.LoadLevel( "TimeUp" );
+			TimeText.text = ( (int)( Time.time - startTime ) ).ToString();
+		}
+		else {
+			TimeText.text = ( (int)( TimeLimit + startTime - Time.time ) ).ToString();
+			if( Time.time - startTime >= TimeLimit )
+			{
+				Application.LoadLevel( "TimeUp" );
+			}
 		}
 
+		CurrentValText.text = SaveDataManager.GetCurrentScore().ToString();
 	}
 
 	public void Button_GiveUp()
@@ -55,7 +68,32 @@ public class MainGameManager : MonoBehaviour
 
 	void OnDestroy()
 	{
+
+		if( SaveDataManager.GetGameMode() == SaveDataManager.GameMode.Chars )
+		{
+			int playtime_ms = (int)( ( Time.time - startTime ) * 1000 );
+			SaveDataManager.SaveScore( playtime_ms );
+		}
+		else
+		{
+			SaveDataManager.SaveScore();
+		}
+
 		SaveDataManager.OnEnd( Time.time - startTime );
+
+	}
+
+
+	static int max( int a, int b )
+	{
+		if( a > b ) return a;
+		return b;
+	}
+
+	static int min( int a, int b )
+	{
+		if( a < b ) return a;
+		return b;
 	}
 
 }
