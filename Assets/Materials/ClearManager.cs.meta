@@ -1,11 +1,10 @@
 fileFormatVersion: 2
-guid: 12cfce599819eca47b1f972b77a20a07
-timeCreated: 1447589508
+guid: 7d58952f97a52f84191dbeea23bae4f8
+timeCreated: 1447594065
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences:
-  - Drop_GameObject: {fileID: 130470, guid: 7db8b380fccbf0b449abbc6fdc6ded2e, type: 2}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

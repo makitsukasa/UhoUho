@@ -15,7 +15,7 @@ public class Drop : MonoBehaviour
 	private const float LinkRadius = 2.0f;
 
 	private bool flag_IsTouched = false;
-	private float time_IsTouched = Time.time;
+	private float time_IsTouched;
 
 	private DropType dropType;
 
@@ -35,6 +35,8 @@ public class Drop : MonoBehaviour
 		dropType = RandDropType();
 
 		SpriteRenderer.sprite = sprites[(int)dropType];
+
+		time_IsTouched = Time.time;
 
 	}
 

@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TitleManager : MonoBehaviour {
+public class StageSelectManager : MonoBehaviour {
 
 	public GameObject Drop_GameObject;
 
 	// Use this for initialization
-	void Start ()
+	void Start()
 	{
 		Vector3 pos = new Vector3( Random.Range( -1.0f, 1.0f ), 5.3f, 100 );
 		Instantiate( Drop_GameObject, pos, new Quaternion() );
@@ -23,25 +23,40 @@ public class TitleManager : MonoBehaviour {
 		pos = new Vector3( Random.Range( -1.0f, 1.0f ), 13.3f, 100 );
 		Instantiate( Drop_GameObject, pos, new Quaternion() );
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 	
 	}
 
-	public void Button_Start()
+	public void Button_Normal()
 	{
-		Application.LoadLevel( "StageSelect" );
+		SaveDataManager.SetGameMode( SaveDataManager.GameMode.Normal );
+		Application.LoadLevel( "main" );
 	}
 
-	public void Button_Achievement()
+	public void Button_GorillaGorilla()
 	{
-		Application.LoadLevel( "Achievement" );
+		SaveDataManager.SetGameMode( SaveDataManager.GameMode.GorillaGorilla );
+		Application.LoadLevel( "main" );
+	}
+
+	public void Button_Chars()
+	{
+		SaveDataManager.SetGameMode( SaveDataManager.GameMode.Chars, 100 );
+		Application.LoadLevel( "main" );
+	}
+
+	public void Button_Banana()
+	{
+		SaveDataManager.SetGameMode( SaveDataManager.GameMode.Banana );
+		Application.LoadLevel( "main" );
 	}
 
 	public void Button_Quit()
 	{
-		Application.Quit();
+		SaveDataManager.SetGameMode( SaveDataManager.GameMode.Dummy);
+		Application.LoadLevel( "Title" );
 	}
 
 }

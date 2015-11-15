@@ -147,8 +147,10 @@ public class DropManager : MonoBehaviour
 	public void ClearAll()
 	{
 		foreach( Drop drop in allDrops ) drop.Erase();
+		/*
 		Debug.Log( "PlayerPrefs CharNum" + SaveDataManager.Get( SaveDataManager.Key.CharNum ) + 
 			", PlayTime" + SaveDataManager.Get(SaveDataManager.Key.PlayTime ) );
+		*/
 	}
 
 	void OnDestroy()
