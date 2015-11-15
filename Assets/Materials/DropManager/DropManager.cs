@@ -16,8 +16,6 @@ public class DropManager : MonoBehaviour
 	List<Drop> allDrops = new List<Drop>();
 	List<Drop> linkedDrops = new List<Drop>();
 
-	float startTime;
-
 	// Use this for initialization
 	void Start()
 	{
@@ -31,18 +29,13 @@ public class DropManager : MonoBehaviour
 			allDrops.Add( hoge.GetComponent<Drop>() );
 		}
 
-		startTime = Time.time;
-
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
 
-		if( TouchUtil.GetTouch() == TouchUtil.TouchInfo.Ended )
-		{
-			Erase();
-		}
+		if( TouchUtil.GetTouch() == TouchUtil.TouchInfo.Ended ) Erase();
 
 	}
 
@@ -50,9 +43,10 @@ public class DropManager : MonoBehaviour
 	{
 		if( linkedDrops.Count == 0 ) return;
 
-		//最初にlinkしたドロップで分け．バナナならバナナがひとつだけ入ってる．
+		//最初にlinkしたドロップで分け
 		switch( linkedDrops[0].GetDropType() )
 		{
+		//最初のドロップがバナナならそれ以外入ってない
 		case DropType.BANANA1:
 		case DropType.BANANA2:
 		case DropType.BANANA3:
@@ -60,6 +54,7 @@ public class DropManager : MonoBehaviour
 			linkedDrops.Clear();
 			break;
 
+		//最初のドロップがゴならゴリラゴリラゴリラ
 		case DropType.GO:
 			Erase_Normal( linkedDrops );
 			linkedDrops.Clear();
@@ -70,6 +65,8 @@ public class DropManager : MonoBehaviour
 
 	private void Erase_Normal( List<Drop> list )
 	{
+
+		//ゴリラゴなら最後のゴは排除
 		while( list.Count % 3 != 0 )
 		{
 			list[list.Count - 1].UnLink();
@@ -156,8 +153,6 @@ public class DropManager : MonoBehaviour
 
 	void OnDestroy()
 	{
-		SaveDataManager.Add( SaveDataManager.Key.PlayNum );
-		SaveDataManager.Add( SaveDataManager.Key.PlayTime, (int)(Time.time - startTime ) );
 		SaveDataManager.Save();
 	}
 
