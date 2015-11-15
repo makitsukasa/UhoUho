@@ -2,17 +2,15 @@
 using System.Collections;
 using BoxyLib;
 
-public class Drop : MonoBehaviour
+public class Drop_Title : MonoBehaviour
 {
 
-	private DropManager DropManager;
 	ParticleSystem Light;
 	Rigidbody2D Rigidbody2D;
 	private SpriteRenderer SpriteRenderer;
 	public Sprite[] sprites = new Sprite[7];
 
 	private const float TouchRadius = 0.4f;
-	private const float LinkRadius = 2.0f;
 
 	private bool flag_IsTouched = false;
 	private float time_IsTouched = Time.time;
@@ -22,8 +20,6 @@ public class Drop : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-
-		DropManager = GameObject.Find( "DropManager" ).GetComponent<DropManager>();
 
 		Rigidbody2D = this.GetComponent<Rigidbody2D>();
 
@@ -43,7 +39,7 @@ public class Drop : MonoBehaviour
 	{
 		Update_Touch();
 		Update_Draw();
-		if( transform.position.y <= -2 )
+		if( transform.position.y <= -5.3 )
 		{
 			Erase();
 		}
@@ -53,36 +49,10 @@ public class Drop : MonoBehaviour
 	{
 		if( GetTouch() != TouchUtil.TouchInfo.Began ) return;
 
-		if( DropManager.GetLastLinkedDrop() == null )
-		{
-			switch( this.dropType )
-			{
-			case DropType.GO:
-			case DropType.BANANA1:
-			case DropType.BANANA2:
-			case DropType.BANANA3:
-				DropManager.AddLinkedDrop( this );
-				break;
-			default:
-				break;
-			}
-			return;
-		}
-		else if( DropManager.GetLastLinkedDrop().IsLinkable( this ) )
-		{
-			DropManager.AddLinkedDrop( this );
-		}
-
 	}
 
 	void Update_Draw()
 	{
-
-		if( !Light.isPlaying && DropManager.IsLinked( this ) )
-		{
-			Light.Play();
-			return;
-		}
 
 		switch( GetTouch() )
 		{
@@ -95,48 +65,14 @@ public class Drop : MonoBehaviour
 			break;
 		}
 	}
-
-	public bool IsLinkable( Drop to )
-	{
-		if( to == null ) return false;
-		if( this.GetPosF().LengthSq( to.GetPosF() ) > LinkRadius ) return false;
-		if( DropManager.IsLinked( to ) ) return false;
-
-		if( ( this.dropType == DropType.GO && to.dropType == DropType.RI ) ||
-			( this.dropType == DropType.RI && to.dropType == DropType.RA ) ||
-			( this.dropType == DropType.RA && to.dropType == DropType.GO )    )
-		{
-			return true;
-		}
-		else return false;
-
-	}
-
+	
 	public void Erase()
 	{
-		this.transform.position = new Vector3( Random.Range( -1.0f, 1.0f ), 9 + Random.Range( -0.5f, 0.5f ) );
-		this.Rigidbody2D.velocity = Vector2.zero;
+		this.transform.position = new Vector3( Random.Range( -3.0f, 3.0f ), 5.3f );
+		this.Rigidbody2D.velocity = new Vector2( 0, Random.Range( -10.0f, 10.0f ) );
 		flag_IsTouched = false;
 		Light.Stop();
 		InitDropType();
-	}
-
-	public void ExplodeBanana()
-	{
-		switch( this.GetDropType() )
-		{
-		case DropType.BANANA1:
-			this.Erase();
-			break;
-		case DropType.BANANA2:
-			this.SetDropType( DropType.BANANA1 );
-			Light.Stop();
-			break;
-		case DropType.BANANA3:
-			this.SetDropType( DropType.BANANA2 );
-			Light.Stop();
-			break;
-		}
 	}
 
 	public void UnLink()
@@ -165,10 +101,10 @@ public class Drop : MonoBehaviour
 
 	public bool IsBanana()
 	{
-		return	dropType == DropType.BANANA1 ||
-				dropType == DropType.BANANA2 || 
+		return dropType == DropType.BANANA1 ||
+				dropType == DropType.BANANA2 ||
 				dropType == DropType.BANANA3;
-    }
+	}
 
 	public Vector2F GetPosF()
 	{
@@ -178,7 +114,7 @@ public class Drop : MonoBehaviour
 
 	int RandDropType_Int()
 	{
-		return Random.Range( (int)DropType.GO, (int)DropType.RA + 1 );
+		return Random.Range( 1, 10 ) % 6;
 	}
 
 	DropType RandDropType()

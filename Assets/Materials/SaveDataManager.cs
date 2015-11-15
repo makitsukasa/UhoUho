@@ -14,6 +14,11 @@ public class SaveDataManager : MonoBehaviour {
 		return keyStr[ (int) key ];
 	}
 
+	private string GetMessage( Key key )
+	{
+		return "";
+	}
+
 	Text TimeText;
 
 	const int TimeLimit = 30;

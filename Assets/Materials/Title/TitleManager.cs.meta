@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 12cfce599819eca47b1f972b77a20a07
+timeCreated: 1447582919
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - Drop_GameObject: {fileID: 158832, guid: 64e82736270cba64285f454016c9fdbf, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

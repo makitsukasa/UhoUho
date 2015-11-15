@@ -49,7 +49,9 @@
      <Compile Include="Assets\BoxyLib.cs" />
      <Compile Include="Assets\Materials\DropManager\Drop\Drop.cs" />
      <Compile Include="Assets\Materials\DropManager\DropManager.cs" />
-     <Compile Include="Assets\SaveDataManager.cs" />
+     <Compile Include="Assets\Materials\SaveDataManager.cs" />
+     <Compile Include="Assets\Materials\Title\Drop_Title.cs" />
+     <Compile Include="Assets\Materials\Title\TitleManager.cs" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
      <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
