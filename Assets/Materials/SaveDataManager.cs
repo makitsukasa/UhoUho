@@ -29,7 +29,6 @@ public class SaveDataManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		PlayerPrefs.DeleteAll();
 		currentGameMode = (GameMode)PlayerPrefs.GetInt( "GameMode" );
 		TargetScore = PlayerPrefs.GetInt( "TargetVal", 999999999 );
 		Debug.Log( currentGameMode.ToString() + GetGameMode() );
@@ -134,6 +133,8 @@ public class SaveDataManager : MonoBehaviour {
 
 	void OnDestroy()
 	{
+		PlayerPrefs.SetInt( "GameMode", (int)GameMode.Dummy );
+		PlayerPrefs.SetInt( "TargetVal", 999999999 );
 		Save();
 	}
 
