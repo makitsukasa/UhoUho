@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Materials\BoxyLib.cs" />
      <Compile Include="Assets\Materials\ClearManager.cs" />
+     <Compile Include="Assets\Materials\DropManager\Drop\BananaEffect.cs" />
      <Compile Include="Assets\Materials\DropManager\Drop\Drop.cs" />
      <Compile Include="Assets\Materials\DropManager\DropManager.cs" />
      <Compile Include="Assets\Materials\MainGameManager.cs" />

@@ -33,7 +33,6 @@ public class StageSelectManager : MonoBehaviour {
 		HighScoreText_Normal			= GameObject.Find( "HighScore_Normal" )			.GetComponent<Text>();
 		HighScoreText_Chars				= GameObject.Find( "HighScore_Chars" )			.GetComponent<Text>();
 		HighScoreText_Banana			= GameObject.Find( "HighScore_Banana" )			.GetComponent<Text>();
-		HighScoreText_GorillaGorilla	= GameObject.Find( "HighScore_GorillaGorilla" )	.GetComponent<Text>();
 
 		string highScore = PlayerPrefs.GetInt( "HighScoreNormal" ).ToString() + "こ";
 		if( highScore == "0" ) highScore = "-";
@@ -47,10 +46,6 @@ public class StageSelectManager : MonoBehaviour {
 		highScore = PlayerPrefs.GetInt( "HighScoreBanana" ).ToString() + "バナナ";
 		if( highScore == "0" ) highScore = "-";
 		HighScoreText_Banana.text = "ハイスコア：\n" + highScore;
-
-		highScore = PlayerPrefs.GetInt( "HighScoreGorillaGorilla" ).ToString() + "こ";
-		if( highScore == "0" ) highScore = "-";
-		HighScoreText_GorillaGorilla.text = "ハイスコア：\n" + highScore;
 
 	}
 

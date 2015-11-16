@@ -20,10 +20,9 @@ public class MainGameManager : MonoBehaviour
 
 	string GetCurrentValTextSubscription( SaveDataManager.GameMode GameMode )
 	{
-		//public enum GameMode { Normal, GorillaGorilla, Chars, Banana, Dummy };
+		//public enum GameMode { Normal, Chars, Banana,  Dummy };
 		string[] text =
 		{
-			"いま\nこ",
 			"いま\nこ",
 			"あと\n文字",
 			"いま\nバナナ",
@@ -34,10 +33,9 @@ public class MainGameManager : MonoBehaviour
 
 	string GetTimeTextSubscription( SaveDataManager.GameMode GameMode )
 	{
-		//public enum GameMode { Normal, GorillaGorilla, Chars, Banana, Dummy };
+		//public enum GameMode { Normal, Chars, Banana, Dummy };
 		string[] text =
 		{
-			"残り\n秒",
 			"残り\n秒",
 			"いま\n秒",
 			"残り\n秒",

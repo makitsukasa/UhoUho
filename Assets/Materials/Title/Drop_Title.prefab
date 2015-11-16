@@ -58,13 +58,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprites:
-  - {fileID: 21300000, guid: 8897f9f16c248314a8025a8a2bd4ac06, type: 3}
-  - {fileID: 21300000, guid: 8897f9f16c248314a8025a8a2bd4ac06, type: 3}
-  - {fileID: 21300000, guid: 1cfa18c5e5050534b995435fbb6e184c, type: 3}
-  - {fileID: 21300000, guid: a05bf1ea2e4c8404396eaee64cbfafab, type: 3}
-  - {fileID: 21300000, guid: c52ecc7f32d78af4896695c1249e2e9e, type: 3}
-  - {fileID: 21300000, guid: 6d9fda3bbc9108d448a5cd868b3616a1, type: 3}
-  - {fileID: 21300000, guid: 1f8baf0406879f1479d1ddb6db4e7d37, type: 3}
+  - {fileID: 21300000, guid: 918dbe715028c004c9e0b1f671c2f047, type: 3}
+  - {fileID: 21300000, guid: 7ed2e2104c0673243900e1b5b3ed406e, type: 3}
+  - {fileID: 21300000, guid: a18095b8e554c7d4da50a74d2313d8aa, type: 3}
+  - {fileID: 21300000, guid: 5508837427e205448b91199054849c8c, type: 3}
+  - {fileID: 21300000, guid: ab850f30f6c0ec0429ec064c87432cc4, type: 3}
+  - {fileID: 21300000, guid: 3e3cea9f114b7a042a6af26e5d17dc2d, type: 3}
+  - {fileID: 21300000, guid: 13c525d31a773904e927e8bcb93f8c14, type: 3}
 --- !u!212 &21256248
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -102,6 +102,41 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: sprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 918dbe715028c004c9e0b1f671c2f047,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: sprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 7ed2e2104c0673243900e1b5b3ed406e,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: sprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: a18095b8e554c7d4da50a74d2313d8aa,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: sprites.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: 5508837427e205448b91199054849c8c,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: sprites.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: ab850f30f6c0ec0429ec064c87432cc4,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: sprites.Array.data[5]
+      value: 
+      objectReference: {fileID: 21300000, guid: 3e3cea9f114b7a042a6af26e5d17dc2d,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: sprites.Array.data[6]
+      value: 
+      objectReference: {fileID: 21300000, guid: 13c525d31a773904e927e8bcb93f8c14,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 130470}

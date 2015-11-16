@@ -6,9 +6,10 @@ public class Drop : MonoBehaviour
 {
 
 	private DropManager DropManager;
-	ParticleSystem Light;
+	ParticleSystem LinkEffect;
 	Rigidbody2D Rigidbody2D;
 	private SpriteRenderer SpriteRenderer;
+	public GameObject BananaEffect_GameObject;
 	public Sprite[] sprites = new Sprite[7];
 
 	private const float TouchRadius = 0.4f;
@@ -27,8 +28,8 @@ public class Drop : MonoBehaviour
 
 		Rigidbody2D = this.GetComponent<Rigidbody2D>();
 
-		Light = transform.FindChild( "Particle System" ).gameObject.GetComponent<ParticleSystem>();
-		Light.Stop();
+		LinkEffect = transform.FindChild( "LinkEffect" ).gameObject.GetComponent<ParticleSystem>();
+		LinkEffect.Stop();
 
 		SpriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
 
@@ -80,20 +81,20 @@ public class Drop : MonoBehaviour
 	void Update_Draw()
 	{
 
-		if( !Light.isPlaying && DropManager.IsLinked( this ) )
+		if( !LinkEffect.isPlaying && DropManager.IsLinked( this ) )
 		{
-			Light.Play();
+			LinkEffect.Play();
 			return;
 		}
 
 		switch( GetTouch() )
 		{
 		case TouchUtil.TouchInfo.Began:
-			Light.Play();
+			LinkEffect.Play();
 			break;
 
 		case TouchUtil.TouchInfo.Ended:
-			Light.Stop();
+			LinkEffect.Stop();
 			break;
 		}
 	}
@@ -119,12 +120,15 @@ public class Drop : MonoBehaviour
 		this.transform.position = new Vector3( Random.Range( -1.0f, 1.0f ), 9 + Random.Range( -0.5f, 0.5f ) );
 		this.Rigidbody2D.velocity = Vector2.zero;
 		flag_IsTouched = false;
-		Light.Stop();
+		LinkEffect.Stop();
 		InitDropType();
 	}
 
 	public void ExplodeBanana()
 	{
+
+		Instantiate( BananaEffect_GameObject, this.transform.position, new Quaternion() );
+
 		switch( this.GetDropType() )
 		{
 		case DropType.BANANA1:
@@ -132,18 +136,19 @@ public class Drop : MonoBehaviour
 			break;
 		case DropType.BANANA2:
 			this.SetDropType( DropType.BANANA1 );
-			Light.Stop();
+			LinkEffect.Stop();
 			break;
 		case DropType.BANANA3:
 			this.SetDropType( DropType.BANANA2 );
-			Light.Stop();
+			LinkEffect.Stop();
 			break;
 		}
+
 	}
 
 	public void UnLink()
 	{
-		Light.Stop();
+		LinkEffect.Stop();
 	}
 
 	public void InitDropType()

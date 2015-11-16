@@ -72,10 +72,6 @@ public class RecordText : MonoBehaviour {
 				SaveDataManager.GetHighScore( SaveDataManager.GameMode.Banana );
 			break;
 
-		case "HighScoreGorillaGorilla":
-			Text.text = "ゴリラゴリラのハイスコア " +
-				SaveDataManager.GetHighScore( SaveDataManager.GameMode.GorillaGorilla );
-			break;
 		}
 	
 	}

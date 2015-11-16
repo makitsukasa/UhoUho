@@ -18,7 +18,7 @@ public class SaveDataManager : MonoBehaviour {
 
 	public static string GetGameModeString( GameMode key )
 	{
-		string[] keyStr = { "Normal", "Chars", "Banana", "GorillaGorilla", "Dummy" };
+		string[] keyStr = { "Normal", "Chars", "Banana", "Dummy" };
 		return keyStr[(int)key];
 	}
 	
