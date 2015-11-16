@@ -27,7 +27,7 @@ public class ClearManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update()
 	{
-
+		if( Input.GetKeyUp( KeyCode.Escape ) ) Button_GoTitle();
 	}
 
 	public void Button_Continue()

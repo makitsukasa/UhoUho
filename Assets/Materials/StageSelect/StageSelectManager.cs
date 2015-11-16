@@ -14,7 +14,6 @@ public class StageSelectManager : MonoBehaviour {
 	// Use this for initialization
 	void Start()
 	{
-		PlayerPrefs.DeleteAll();
 
 		Vector3 pos = new Vector3( Random.Range( -1.0f, 1.0f ), 5.3f, 100 );
 		Instantiate( Drop_GameObject, pos, new Quaternion() );
@@ -32,24 +31,32 @@ public class StageSelectManager : MonoBehaviour {
 		Instantiate( Drop_GameObject, pos, new Quaternion() );
 
 		HighScoreText_Normal			= GameObject.Find( "HighScore_Normal" )			.GetComponent<Text>();
-		HighScoreText_GorillaGorilla	= GameObject.Find( "HighScore_GorillaGorilla" )	.GetComponent<Text>();
 		HighScoreText_Chars				= GameObject.Find( "HighScore_Chars" )			.GetComponent<Text>();
 		HighScoreText_Banana			= GameObject.Find( "HighScore_Banana" )			.GetComponent<Text>();
+		HighScoreText_GorillaGorilla	= GameObject.Find( "HighScore_GorillaGorilla" )	.GetComponent<Text>();
 
-		int highScore = PlayerPrefs.GetInt( "HighScoreNormal" );
-		HighScoreText_Normal.text = "ハイスコア：\n" + highScore + "こ";
-		highScore = PlayerPrefs.GetInt( "HighScoreGorillaGorilla" );
-		HighScoreText_GorillaGorilla.text = "ハイスコア：\n" + highScore + "こ";
-		highScore = PlayerPrefs.GetInt( "HighScoreChars", 999999999 );
-		HighScoreText_Chars.text = "ハイスコア：\n" + highScore / 1000 + "\"" + ( highScore % 1000 ).ToString("000");
-		highScore = PlayerPrefs.GetInt( "HighScoreBanana" );
-		HighScoreText_Banana.text = "ハイスコア：\n" + highScore + "バナナ";
+		string highScore = PlayerPrefs.GetInt( "HighScoreNormal" ).ToString() + "こ";
+		if( highScore == "0" ) highScore = "-";
+		HighScoreText_Normal.text = "ハイスコア：\n" + highScore;
+
+		highScore = ( PlayerPrefs.GetInt( "HighScoreChars", 999999999 ) / 1000 ).ToString() + "秒" +
+					( PlayerPrefs.GetInt( "HighScoreChars", 999999999 ) % 1000 ).ToString();
+		if( highScore == "999999秒999" ) highScore = "-";
+		HighScoreText_Chars.text = "ハイスコア：\n" + highScore;
+
+		highScore = PlayerPrefs.GetInt( "HighScoreBanana" ).ToString() + "バナナ";
+		if( highScore == "0" ) highScore = "-";
+		HighScoreText_Banana.text = "ハイスコア：\n" + highScore;
+
+		highScore = PlayerPrefs.GetInt( "HighScoreGorillaGorilla" ).ToString() + "こ";
+		if( highScore == "0" ) highScore = "-";
+		HighScoreText_GorillaGorilla.text = "ハイスコア：\n" + highScore;
 
 	}
 
 	// Update is called once per frame
 	void Update () {
-	
+		if( Input.GetKeyUp( KeyCode.Escape ) ) Button_Quit();
 	}
 
 	public void Button_Normal()
@@ -81,5 +88,6 @@ public class StageSelectManager : MonoBehaviour {
 		SaveDataManager.SetGameMode( SaveDataManager.GameMode.Dummy);
 		Application.LoadLevel( "Title" );
 	}
+
 
 }

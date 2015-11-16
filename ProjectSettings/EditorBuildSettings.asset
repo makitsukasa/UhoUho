@@ -17,3 +17,5 @@ EditorBuildSettings:
     path: Assets/GiveUp.unity
   - enabled: 1
     path: Assets/TimeUp.unity
+  - enabled: 1
+    path: Assets/Record.unity

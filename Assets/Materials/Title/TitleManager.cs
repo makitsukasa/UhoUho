@@ -26,7 +26,7 @@ public class TitleManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if( Input.GetKeyUp( KeyCode.Escape ) ) Button_Quit();
 	}
 
 	public void Button_Start()
@@ -36,7 +36,7 @@ public class TitleManager : MonoBehaviour {
 
 	public void Button_Achievement()
 	{
-		Application.LoadLevel( "Achievement" );
+		Application.LoadLevel( "Record" );
 	}
 
 	public void Button_Quit()

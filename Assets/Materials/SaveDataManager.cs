@@ -14,34 +14,23 @@ public class SaveDataManager : MonoBehaviour {
 		return keyStr[ (int) key ];
 	}
 
-	public enum GameMode { Normal, GorillaGorilla, Chars, Banana, Dummy };
+	public enum GameMode { Normal, Chars, Banana, GorillaGorilla, Dummy };
 
 	public static string GetGameModeString( GameMode key )
 	{
-		string[] keyStr = { "Normal", "GorillaGorilla", "Chars", "Banana", "Dummy" };
+		string[] keyStr = { "Normal", "Chars", "Banana", "GorillaGorilla", "Dummy" };
 		return keyStr[(int)key];
 	}
-
-	GameMode currentGameMode;
-	int currentScore = 0;
-	int TargetScore;
-
-
+	
 	// Use this for initialization
-	void Start () {
-		currentGameMode = (GameMode)PlayerPrefs.GetInt( "GameMode" );
-		TargetScore = PlayerPrefs.GetInt( "TargetVal", 999999999 );
-		Debug.Log( currentGameMode.ToString() + GetGameMode() );
+	void Start ()
+	{
+		Debug.Log( GetGameMode() + " in start" );
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-	}
-
-	public int Get( Key key )
-	{
-		return PlayerPrefs.GetInt( GetKeyString( key ) );
 	}
 
 	public void Add( Key key, int value = 1 )
@@ -52,27 +41,89 @@ public class SaveDataManager : MonoBehaviour {
 		PlayerPrefs.SetInt( GetKeyString( key ), val );
 
 		//ついでにいろいろする
-		switch( currentGameMode )
+		switch( GetGameMode() )
 		{
 		case GameMode.Normal:
-			if( key == Key.CharNum ) currentScore++;
+			if( key == Key.CharNum ) AddCurrentScore();
+			break;
+		case GameMode.Chars:
+			if( key == Key.CharNum ) AddCurrentScore();
+			if( GetCurrentScore() >= GetTargetScore() ) Application.LoadLevel( "Clear" );
+			break;
+		case GameMode.Banana:
+			if( key == Key.BananaNum ) AddCurrentScore();
 			break;
 		case GameMode.GorillaGorilla:
 			if( key == Key.Gorilla2Num || key == Key.Gorilla3Num ||
 				key == Key.Gorilla4Num || key == Key.Gorilla5Num )
-				currentScore++;
-			break;
-		case GameMode.Chars:
-			if( key == Key.CharNum ) currentScore++;
-			if( currentScore >= TargetScore ) Application.LoadLevel( "Clear" );
-			break;
-		case GameMode.Banana:
-			if( key == Key.BananaNum ) currentScore++;
+				AddCurrentScore();
 			break;
 		default:
 			break;
 		}
 
+	}
+
+	public void SaveScore( int time_ms_for_Chars = 0 )
+	{
+
+		if( GetGameMode() == GameMode.Chars )
+		{
+			string str = "HighScore" + GetGameMode().ToString();
+			PlayerPrefs.SetInt( str, min( time_ms_for_Chars, PlayerPrefs.GetInt( str, 999999999 ) ) );
+			Debug.Log( str + "  " + PlayerPrefs.GetInt( str ) );
+		}
+		else
+		{
+			string str = "HighScore" + GetGameMode().ToString();
+			PlayerPrefs.SetInt( str, max( GetCurrentScore(), PlayerPrefs.GetInt( str ) ) );
+			Debug.Log( str + "  " + PlayerPrefs.GetInt( str ) );
+		}
+
+		PlayerPrefs.SetInt( "CurrentScore", 0 );
+
+		Save();
+		
+	}
+
+	public static void SetGameMode( GameMode key, int targetScore = 999999999 )
+	{
+		PlayerPrefs.SetInt( "GameMode", (int)key );
+		PlayerPrefs.SetInt( "TargetScore", targetScore );
+		Debug.Log( key + " save" );
+		Save();
+	}
+
+	public static GameMode GetGameMode()
+	{
+		return (GameMode)PlayerPrefs.GetInt( "GameMode" );
+	}
+
+	public static int GetCurrentScore()
+	{
+		return PlayerPrefs.GetInt( "CurrentScore" );
+	}
+
+	public void AddCurrentScore( int val = 1 )
+	{
+		PlayerPrefs.SetInt( "CurrentScore", PlayerPrefs.GetInt( "CurrentScore" ) + val );
+	}
+
+	public void InitCurrentScore()
+	{
+		PlayerPrefs.SetInt( "CurrentScore", 0 );
+	}
+
+
+	public int GetTargetScore()
+	{
+		return PlayerPrefs.GetInt( "TargetScore" );
+	}
+
+	public int GetHighScore( GameMode mode )
+	{
+		string str = "HighScore" + mode.ToString();
+		return PlayerPrefs.GetInt( str );
 	}
 
 	public static void OnEnd( float playtime )
@@ -84,58 +135,26 @@ public class SaveDataManager : MonoBehaviour {
 		PlayerPrefs.SetInt( str, PlayerPrefs.GetInt( str ) + (int)playtime );
 
 		Save();
-    }
-
-	public static void SetGameMode( GameMode key, int targetVal = 999999999 )
-	{
-		PlayerPrefs.SetInt( "GameMode", (int)key );
-		PlayerPrefs.SetInt( "TargetVal", targetVal );
-		Save();
 	}
 
-	public void SaveScore( int time_ms_for_Chars = 0 )
+	public int Get( Key key )
 	{
-		string str;
-
-		if( GetGameMode() == GameMode.Chars )
-		{
-			str = "HighScore" + GetGameMode().ToString();
-			PlayerPrefs.SetInt( str, min( time_ms_for_Chars, PlayerPrefs.GetInt( str, 999999999 ) ) );
-
-			str = "CurrentScore" + GetGameMode().ToString();
-			PlayerPrefs.SetInt( str, time_ms_for_Chars );
-		}
-		else
-		{
-			str = "HighScore" + GetGameMode().ToString();
-			PlayerPrefs.SetInt( str, max( currentScore, PlayerPrefs.GetInt( str ) ) );
-
-			str = "CurrentScore" + GetGameMode().ToString();
-			PlayerPrefs.SetInt( str, currentScore );
-		}
-
-	}
-
-	public int GetCurrentScore()
-	{
-		return currentScore;
-	}
-
-	public static GameMode GetGameMode()
-	{
-		return (GameMode)PlayerPrefs.GetInt( "GameMode" );
-	}
-	
-	public static void Save()
-	{
-		PlayerPrefs.Save();
+		return PlayerPrefs.GetInt( GetKeyString( key ) );
 	}
 
 	void OnDestroy()
 	{
-		PlayerPrefs.SetInt( "GameMode", (int)GameMode.Dummy );
-		PlayerPrefs.SetInt( "TargetVal", 999999999 );
 		Save();
+	}
+
+	public static void DeleteAll()
+	{
+		PlayerPrefs.DeleteAll();
+	}
+
+	public static void Save()
+	{
+		PlayerPrefs.Save();
 	}
 
 	static int max( int a, int b )
@@ -149,6 +168,5 @@ public class SaveDataManager : MonoBehaviour {
 		if( a < b ) return a;
 		return b;
 	}
-
 
 }

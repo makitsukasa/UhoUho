@@ -18,12 +18,12 @@ public class MainGameManager : MonoBehaviour
 
 	float startTime;
 
-	string GetSubscription( SaveDataManager.GameMode GameMode )
+	string GetCurrentValTextSubscription( SaveDataManager.GameMode GameMode )
 	{
 		//public enum GameMode { Normal, GorillaGorilla, Chars, Banana, Dummy };
 		string[] text =
 		{
-			"",
+			"いま\nこ",
 			"いま\nこ",
 			"あと\n文字",
 			"いま\nバナナ",
@@ -32,33 +32,56 @@ public class MainGameManager : MonoBehaviour
 		return text[(int)GameMode];
 	}
 
+	string GetTimeTextSubscription( SaveDataManager.GameMode GameMode )
+	{
+		//public enum GameMode { Normal, GorillaGorilla, Chars, Banana, Dummy };
+		string[] text =
+		{
+			"残り\n秒",
+			"残り\n秒",
+			"いま\n秒",
+			"残り\n秒",
+			""
+		};
+		return text[(int)GameMode];
+	}
+
 	// Use this for initialization
 	void Start()
 	{
+
 		SaveDataManager = GameObject.Find( "SaveDataManager" ).GetComponent<SaveDataManager>();
 		TimeText = GameObject.Find( "TimeText" ).GetComponent<Text>();
 		CurrentValText = GameObject.Find( "CurrentValText" ).GetComponent<Text>();
-		startTime = Time.time;
+
 		CurrentValText_Subscription = GameObject.Find( "CurrentValText_Subscription" ).GetComponent<Text>();
-		CurrentValText_Subscription.text = GetSubscription( SaveDataManager.GetGameMode() );
+		CurrentValText_Subscription.text = GetCurrentValTextSubscription( SaveDataManager.GetGameMode() );
+
+		TimeText_Subscription = GameObject.Find( "TimeText_Subscription" ).GetComponent<Text>();
+		TimeText_Subscription.text = GetTimeTextSubscription( SaveDataManager.GetGameMode() );
+
+		startTime = Time.time;
+
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
+
+		if( Input.GetKeyUp( KeyCode.Escape ) ) Button_GiveUp();
+
 		if( SaveDataManager.GetGameMode() == SaveDataManager.GameMode.Chars )
 		{
 			TimeText.text = ( (int)( Time.time - startTime ) ).ToString();
+			CurrentValText.text = ( SaveDataManager.GetTargetScore() - 
+									SaveDataManager.GetCurrentScore() ).ToString();
 		}
 		else {
 			TimeText.text = ( (int)( TimeLimit + startTime - Time.time ) ).ToString();
-			if( Time.time - startTime >= TimeLimit )
-			{
-				Application.LoadLevel( "TimeUp" );
-			}
+			CurrentValText.text = SaveDataManager.GetCurrentScore().ToString();
+			if( Time.time - startTime >= TimeLimit ) Application.LoadLevel( "TimeUp" );
 		}
 
-		CurrentValText.text = SaveDataManager.GetCurrentScore().ToString();
 	}
 
 	public void Button_GiveUp()
