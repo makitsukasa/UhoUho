@@ -48,7 +48,11 @@ public class SaveDataManager : MonoBehaviour {
 			break;
 		case GameMode.Chars:
 			if( key == Key.CharNum ) AddCurrentScore();
-			if( GetCurrentScore() >= GetTargetScore() ) Application.LoadLevel( "Clear" );
+			if( GetCurrentScore() >= GetTargetScore() )
+			{
+				Debug.Log( "currentScore : " + GetCurrentScore() );
+				Application.LoadLevel( "Clear" );
+			}
 			break;
 		case GameMode.Banana:
 			if( key == Key.BananaNum ) AddCurrentScore();
@@ -97,7 +101,7 @@ public class SaveDataManager : MonoBehaviour {
 		return PlayerPrefs.GetInt( "CurrentScore" );
 	}
 
-	public void AddCurrentScore( int val = 1 )
+	public static void AddCurrentScore( int val = 1 )
 	{
 		PlayerPrefs.SetInt( "CurrentScore", PlayerPrefs.GetInt( "CurrentScore" ) + val );
 	}
@@ -145,6 +149,7 @@ public class SaveDataManager : MonoBehaviour {
 	void OnDestroy()
 	{
 		Save();
+		Debug.Log( "currentScore : " + GetCurrentScore() + Application.loadedLevelName );
 	}
 
 	public static void DeleteAll()

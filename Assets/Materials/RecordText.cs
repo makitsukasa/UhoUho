@@ -65,7 +65,7 @@ public class RecordText : MonoBehaviour {
 		case "HighScoreChars":
 			Text.text = "100ゴリラのハイスコア " +
 				( SaveDataManager.GetHighScore( SaveDataManager.GameMode.Chars ) / 1000 ) + "秒" +
-				( SaveDataManager.GetHighScore( SaveDataManager.GameMode.Chars ) % 1000 );
+				( SaveDataManager.GetHighScore( SaveDataManager.GameMode.Chars ) % 1000 ).ToString( "000" );
 			break;
 
 		case "HighScoreBanana":

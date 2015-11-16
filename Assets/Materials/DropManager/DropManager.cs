@@ -156,6 +156,7 @@ public class DropManager : MonoBehaviour
 	void OnDestroy()
 	{
 		SaveDataManager.Save();
+		Debug.Log( "currentScore : " + SaveDataManager.GetCurrentScore() + Application.loadedLevelName );
 	}
 
 }

@@ -97,8 +97,12 @@ public class MainGameManager : MonoBehaviour
 			SaveDataManager.AddCurrentScore( playtime_ms );
 			SaveDataManager.Save();
 		}
-		Debug.Log( "currentScore : " + SaveDataManager.GetCurrentScore() );
 		SaveDataManager.OnEnd( Time.time - startTime );
+		SaveDataManager.Save();
+		Debug.Log( "currentScore : " + SaveDataManager.GetCurrentScore() + Application.loadedLevelName );
+		PlayerPrefs.SetInt( "HOGE", SaveDataManager.GetCurrentScore() );
+		SaveDataManager.Save();
+		Debug.Log( "hoge : " + PlayerPrefs.GetInt("HOGE") + Application.loadedLevelName );
 	}
 
 

@@ -10,7 +10,11 @@ public class ClearManager : MonoBehaviour {
 	// Use this for initialization
 	void Start()
 	{
-		Debug.Log( "currentScore : " + SaveDataManager.GetCurrentScore() );
+
+		Debug.Log( "currentScore : " + SaveDataManager.GetCurrentScore() + Application.loadedLevelName );
+		Debug.Log( "hoge : " + PlayerPrefs.GetInt( "HOGE" ) + Application.loadedLevelName );
+		PlayerPrefs.SetInt( "CurrentScore", PlayerPrefs.GetInt( "HOGE" ) );
+
 		Vector3 pos = new Vector3( Random.Range( -1.0f, 1.0f ), 5.3f, 100 );
 		Instantiate( Drop_GameObject, pos, new Quaternion() );
 
@@ -37,13 +41,21 @@ public class ClearManager : MonoBehaviour {
 			{
 				HighScore.text = "ハイスコア！";
 				SaveDataManager.SaveScore( SaveDataManager.GetCurrentScore() );
-				Result.text = SaveDataManager.GetCurrentScore().ToString();
+				string str = ( SaveDataManager.GetHighScore( SaveDataManager.GameMode.Chars ) / 1000 ) + "秒" +
+							( SaveDataManager.GetHighScore( SaveDataManager.GameMode.Chars ) % 1000 ).ToString("000");
+				if( str == "999999秒999" ) str = "-";
+				Result.text = str;
             }
 			else
 			{
 				HighScore.text = " ";
-				Result.text = SaveDataManager.GetCurrentScore() + "\n" +
-							"ハイスコア：" + SaveDataManager.GetHighScore( SaveDataManager.GetGameMode() );
+				string curt = ( SaveDataManager.GetCurrentScore() / 1000 ) + "秒" +
+							( SaveDataManager.GetCurrentScore() % 1000 ).ToString("000");
+				if( curt == "999999秒999" ) curt = "-";
+				string high = ( SaveDataManager.GetHighScore( SaveDataManager.GameMode.Chars ) / 1000 ) + "秒" +
+							( SaveDataManager.GetHighScore( SaveDataManager.GameMode.Chars ) % 1000 ).ToString("000");
+				if( high == "999999秒999" ) high = "-";
+				Result.text = curt + "\n" + "ハイスコア：" + high;
 			}
 		}
 		else
