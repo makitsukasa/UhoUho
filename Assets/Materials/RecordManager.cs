@@ -41,5 +41,15 @@ public class RecordManager : MonoBehaviour {
 		Application.LoadLevel( "Title" );
 	}
 
+	public void Button_AzukiFont()
+	{
+		Application.OpenURL( "http://azukifont.com/" );
+	}
+
+	public void Button_AuthorTwitter()
+	{
+		Application.OpenURL( "https://twitter.com/tsukasa_boxy/" );
+	}
+
 
 }
