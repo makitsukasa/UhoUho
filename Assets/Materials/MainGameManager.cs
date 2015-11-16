@@ -93,15 +93,12 @@ public class MainGameManager : MonoBehaviour
 		if( SaveDataManager.GetGameMode() == SaveDataManager.GameMode.Chars )
 		{
 			int playtime_ms = (int)( ( Time.time - startTime ) * 1000 );
-			SaveDataManager.SaveScore( playtime_ms );
+			SaveDataManager.InitCurrentScore();
+			SaveDataManager.AddCurrentScore( playtime_ms );
+			SaveDataManager.Save();
 		}
-		else
-		{
-			SaveDataManager.SaveScore();
-		}
-
+		Debug.Log( "currentScore : " + SaveDataManager.GetCurrentScore() );
 		SaveDataManager.OnEnd( Time.time - startTime );
-
 	}
 
 

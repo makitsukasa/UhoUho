@@ -12,7 +12,7 @@ public class RecordText : MonoBehaviour {
 
 		Text = this.gameObject.GetComponent<Text>();
 		SaveDataManager = GameObject.Find( "SaveDataManager" ).GetComponent<SaveDataManager>();
-		Debug.Log( this.name );
+		//Debug.Log( this.name );
 
 		switch( this.name )
 		{
@@ -31,17 +31,17 @@ public class RecordText : MonoBehaviour {
 			break;
 
 		case "TotalGorilla3":
-			Text.text = "いままでに消したゴリラゴリラゴリラの数 " 
+			Text.text = "いままでに消した\nゴリラゴリラゴリラの数 " 
 				+ SaveDataManager.Get( SaveDataManager.Key.Gorilla3Num );
 			break;
 
 		case "TotalGorilla4":
-			Text.text = "いままでに消したゴリラゴリラゴリラゴリラの数 " 
+			Text.text = "いままでに消した\nゴリラゴリラゴリラゴリラの数 " 
 				+ SaveDataManager.Get( SaveDataManager.Key.Gorilla4Num );
 			break;
 
 		case "TotalGorilla5":
-			Text.text = "いままでに消したゴリラゴリラゴリラゴリラゴリラ以上の数 " 
+			Text.text = "いままでに消した\nゴリラゴリラゴリラゴリラゴリラ以上の数 " 
 				+ SaveDataManager.Get( SaveDataManager.Key.Gorilla5Num );
 			break;
 
@@ -70,7 +70,7 @@ public class RecordText : MonoBehaviour {
 
 		case "HighScoreBanana":
 			Text.text = "バナナマスターのハイスコア " +
-				SaveDataManager.GetHighScore( SaveDataManager.GameMode.Banana );
+				SaveDataManager.GetHighScore( SaveDataManager.GameMode.Banana ) + "バナナ";
 			break;
 
 		}

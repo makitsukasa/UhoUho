@@ -34,16 +34,16 @@ public class StageSelectManager : MonoBehaviour {
 		HighScoreText_Chars				= GameObject.Find( "HighScore_Chars" )			.GetComponent<Text>();
 		HighScoreText_Banana			= GameObject.Find( "HighScore_Banana" )			.GetComponent<Text>();
 
-		string highScore = PlayerPrefs.GetInt( "HighScoreNormal" ).ToString() + "こ";
+		string highScore = SaveDataManager.GetHighScore(SaveDataManager.GameMode.Normal ) + "こ";
 		if( highScore == "0" ) highScore = "-";
 		HighScoreText_Normal.text = "ハイスコア：\n" + highScore;
 
-		highScore = ( PlayerPrefs.GetInt( "HighScoreChars", 999999999 ) / 1000 ).ToString() + "秒" +
-					( PlayerPrefs.GetInt( "HighScoreChars", 999999999 ) % 1000 ).ToString();
+		highScore = ( SaveDataManager.GetHighScore( SaveDataManager.GameMode.Chars ) / 1000 ) + "秒" +
+					( SaveDataManager.GetHighScore( SaveDataManager.GameMode.Chars ) % 1000 );
 		if( highScore == "999999秒999" ) highScore = "-";
 		HighScoreText_Chars.text = "ハイスコア：\n" + highScore;
 
-		highScore = PlayerPrefs.GetInt( "HighScoreBanana" ).ToString() + "バナナ";
+		highScore = SaveDataManager.GetHighScore( SaveDataManager.GameMode.Banana ) + "バナナ";
 		if( highScore == "0" ) highScore = "-";
 		HighScoreText_Banana.text = "ハイスコア：\n" + highScore;
 
@@ -57,12 +57,6 @@ public class StageSelectManager : MonoBehaviour {
 	public void Button_Normal()
 	{
 		SaveDataManager.SetGameMode( SaveDataManager.GameMode.Normal );
-		Application.LoadLevel( "main" );
-	}
-
-	public void Button_GorillaGorilla()
-	{
-		SaveDataManager.SetGameMode( SaveDataManager.GameMode.GorillaGorilla );
 		Application.LoadLevel( "main" );
 	}
 
