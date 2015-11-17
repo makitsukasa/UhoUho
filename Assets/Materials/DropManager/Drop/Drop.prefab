@@ -105,9 +105,9 @@ MonoBehaviour:
     type: 2}
   sprites:
   - {fileID: 21300000, guid: 918dbe715028c004c9e0b1f671c2f047, type: 3}
-  - {fileID: 21300000, guid: 7ed2e2104c0673243900e1b5b3ed406e, type: 3}
-  - {fileID: 21300000, guid: a18095b8e554c7d4da50a74d2313d8aa, type: 3}
-  - {fileID: 21300000, guid: 5508837427e205448b91199054849c8c, type: 3}
+  - {fileID: 21300000, guid: 50e7c2bf838dca54392af7186001b3be, type: 3}
+  - {fileID: 21300000, guid: 1a25df0b6967ba34fafafeb4bf7168ee, type: 3}
+  - {fileID: 21300000, guid: d34efbee8ce21ae4fb4ca5b071687fa7, type: 3}
   - {fileID: 21300000, guid: ab850f30f6c0ec0429ec064c87432cc4, type: 3}
   - {fileID: 21300000, guid: 3e3cea9f114b7a042a6af26e5d17dc2d, type: 3}
   - {fileID: 21300000, guid: 13c525d31a773904e927e8bcb93f8c14, type: 3}
@@ -1237,6 +1237,21 @@ Prefab:
       propertyPath: BananaEffect_GameObject
       value: 
       objectReference: {fileID: 103606, guid: 15227e5345882b04e98d24a97a245700, type: 2}
+    - target: {fileID: 0}
+      propertyPath: sprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 50e7c2bf838dca54392af7186001b3be,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: sprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: 1a25df0b6967ba34fafafeb4bf7168ee,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: sprites.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: d34efbee8ce21ae4fb4ca5b071687fa7,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 142764}
