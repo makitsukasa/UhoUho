@@ -63,6 +63,7 @@ ExportedObj/
 *.unityproj
 *.booproj
 *.log
+*.dll
 
 # -------------[ OS generated ]------------------------ #
 .DS_Store

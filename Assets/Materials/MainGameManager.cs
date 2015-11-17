@@ -58,6 +58,8 @@ public class MainGameManager : MonoBehaviour
 		TimeText_Subscription = GameObject.Find( "TimeText_Subscription" ).GetComponent<Text>();
 		TimeText_Subscription.text = GetTimeTextSubscription( SaveDataManager.GetGameMode() );
 
+		SaveDataManager.InitCurrentScore();
+
 		startTime = Time.time;
 
 	}

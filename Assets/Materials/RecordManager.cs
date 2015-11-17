@@ -27,7 +27,7 @@ public class RecordManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if( Input.GetKeyUp( KeyCode.Escape ) ) Button_Title();
 	}
 
 	public void Button_DeleteAll()

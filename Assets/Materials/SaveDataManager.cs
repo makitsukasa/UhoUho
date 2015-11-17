@@ -87,6 +87,7 @@ public class SaveDataManager : MonoBehaviour {
 	{
 		PlayerPrefs.SetInt( "GameMode", (int)key );
 		PlayerPrefs.SetInt( "TargetScore", targetScore );
+		//InitCurrentScore();
 		Debug.Log( key + " save" );
 		Save();
 	}
@@ -172,6 +173,11 @@ public class SaveDataManager : MonoBehaviour {
 	{
 		if( a < b ) return a;
 		return b;
+	}
+
+	void OnApplicationQuit()
+	{
+		InitCurrentScore();
 	}
 
 }
