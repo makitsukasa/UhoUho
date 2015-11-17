@@ -1,0 +1,98 @@
+Initialize engine version: 5.1.3f1 (b0a23b31c3d8)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: Intel(R) HD Graphics 5500 (ID=0x1616)
+    Vendor:   Intel
+    VRAM:     1919 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Tsukasa\Documents\GitHub\UhoUho\UhoUho_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Tsukasa\Documents\GitHub\UhoUho\UhoUho_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Tsukasa\Documents\GitHub\UhoUho\UhoUho_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\Tsukasa\Documents\GitHub\UhoUho\UhoUho_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\Tsukasa\Documents\GitHub\UhoUho\UhoUho_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Tsukasa\Documents\GitHub\UhoUho\UhoUho_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Tsukasa\Documents\GitHub\UhoUho\UhoUho_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Tsukasa\Documents\GitHub\UhoUho\UhoUho_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Tsukasa\Documents\GitHub\UhoUho\UhoUho_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Tsukasa\Documents\GitHub\UhoUho\UhoUho_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\Tsukasa\Documents\GitHub\UhoUho\UhoUho_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
+Loading C:\Users\Tsukasa\Documents\GitHub\UhoUho\UhoUho_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
+Platform assembly: C:\Users\Tsukasa\Documents\GitHub\UhoUho\UhoUho_Data\Managed\System.Core.dll (this message is harmless)
+- Completed reload, in  0.236 seconds
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
+<RI> Input initialized.
+<RI> Initialized touch support.
+Platform assembly: C:\Users\Tsukasa\Documents\GitHub\UhoUho\UhoUho_Data\Managed\System.dll (this message is harmless)
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 18.227369 ms
+
+Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 291.
+Total: 0.669472 ms (FindLiveObjects: 0.062515 ms CreateObjectMapping: 0.059715 ms MarkObjects: 0.535577 ms  DeleteObjects: 0.010263 ms)
+
+Chars save
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.010748 ms
+
+Unloading 6 unused Assets to reduce memory usage. Loaded Objects now: 313.
+Total: 1.059958 ms (FindLiveObjects: 0.070446 ms CreateObjectMapping: 0.079776 ms MarkObjects: 0.871480 ms  DeleteObjects: 0.036855 ms)
+
+Chars in start
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
+
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+currentScore : 37main
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
+
+currentScore : 43719main
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
+
+hoge : 43719main
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
+
+currentScore : 43719main
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
+
+UnloadTime: 12.801146 ms
+
+Unloading 29 unused Assets to reduce memory usage. Loaded Objects now: 260.
+Total: 0.916733 ms (FindLiveObjects: 0.045253 ms CreateObjectMapping: 0.048519 ms MarkObjects: 0.515983 ms  DeleteObjects: 0.306044 ms)
+
+currentScore : 43719GiveUp
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
+
+hoge : 43719GiveUp
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
+
+Unloading 1 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.802209 ms
+
+Unloading 3 unused Assets to reduce memory usage. Loaded Objects now: 263.
+Total: 0.770709 ms (FindLiveObjects: 0.062981 ms CreateObjectMapping: 0.061582 ms MarkObjects: 0.619086 ms  DeleteObjects: 0.024726 ms)
+
+Unloading 2 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 1.353406 ms
+
+Unloading 1 unused Assets to reduce memory usage. Loaded Objects now: 344.
+Total: 0.765577 ms (FindLiveObjects: 0.052718 ms CreateObjectMapping: 0.051318 ms MarkObjects: 0.648478 ms  DeleteObjects: 0.011196 ms)
+
+Chars in start
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
+
+currentScore : 0Record
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 65)
+

@@ -51,6 +51,7 @@
      <Compile Include="Assets\Materials\DropManager\Drop\BananaEffect.cs" />
      <Compile Include="Assets\Materials\DropManager\Drop\Drop.cs" />
      <Compile Include="Assets\Materials\DropManager\DropManager.cs" />
+     <Compile Include="Assets\Materials\HowToPlayManager.cs" />
      <Compile Include="Assets\Materials\MainGameManager.cs" />
      <Compile Include="Assets\Materials\RecordManager.cs" />
      <Compile Include="Assets\Materials\RecordText.cs" />

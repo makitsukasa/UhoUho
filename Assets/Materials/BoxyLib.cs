@@ -7,66 +7,70 @@ namespace BoxyLib
 {
 
 	public enum DropType { Void = 0, GO, RI, RA, BANANA1, BANANA2, BANANA3 };
-	public enum DropColor {  Void = 0, Red, Green, Blue };
+	public enum DropColor { Void = 0, Red, Green, Blue };
 
 	public static class TouchUtil
 	{
 		//http://qiita.com/tempura/items/4a5482ff6247ec8873df
 
+		private static int[] TouchCountHistory = {0, 0};
+		private static float LastUpdateTime;
+
 		public static bool GetTouch_Bool()
 		{
 			switch( GetTouch() )
 			{
-				case TouchUtil.TouchInfo.Began:
-				case TouchUtil.TouchInfo.Moved:
-				case TouchUtil.TouchInfo.Stationary:
-					return true;
+			case TouchUtil.TouchInfo.Began:
+			case TouchUtil.TouchInfo.Moved:
+			case TouchUtil.TouchInfo.Stationary:
+				return true;
 
-				default:
-					return false;
+			default:
+				return false;
 			}
 		}
-		
+
+		static void Init()
+		{
+			Input.simulateMouseWithTouches = false;
+		}
+
 		//タッチ情報を取得(エディタと実機を考慮)
 		public static TouchInfo GetTouch()
 		{
-			if( Application.platform == RuntimePlatform.WindowsEditor )
+
+			if( Input.touchCount > 0 )
 			{
-				if( Input.GetMouseButtonDown( 0 ) ) return TouchInfo.Began;
-				if( Input.GetMouseButton	( 0 ) )	return TouchInfo.Stationary;
-				if( Input.GetMouseButtonUp	( 0 ) ) return TouchInfo.Ended;
-				return TouchInfo.None;
+				return (TouchInfo)( (int)Input.GetTouch( 0 ).phase );
 			}
 			else
 			{
-				if( Input.touchCount > 0 )
-				{
-					return (TouchInfo)( (int)Input.GetTouch( 0 ).phase );
-				}
+				if( Input.GetMouseButtonDown( 0 ) ) return TouchInfo.Began;
+				if( Input.GetMouseButton( 0 ) ) return TouchInfo.Moved;
+				if( Input.GetMouseButtonUp( 0 ) ) return TouchInfo.Ended;
 				return TouchInfo.None;
 			}
+
 		}
-		
+
 		//タッチポジションを取得(エディタと実機を考慮)
 		public static Vector3 GetTouchPosition()
 		{
-			if( Application.platform == RuntimePlatform.WindowsEditor )
-			{
-				TouchInfo touch = TouchUtil.GetTouch();
-				if( touch != TouchInfo.None ) return Input.mousePosition;
-				return Vector3.zero;
-			}
-			else
-			{
 				if( Input.touchCount > 0 )
 				{
 					Vector2 touchPos = Input.GetTouch(0).position;
 					return new Vector3( touchPos.x, touchPos.y, 0 );
 				}
-				return Vector3.zero;
-			}
+				else if( GetTouch_Bool() )
+				{
+					return Input.mousePosition;
+				}
+				else
+				{
+					return Vector3.zero;
+				}
 		}
-		
+
 		public static Vector3 GetTouchWorldPosition( Camera camera )
 		{
 			return camera.ScreenToWorldPoint( GetTouchPosition() );

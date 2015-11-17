@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using BoxyLib;
 
 public class MainGameManager : MonoBehaviour
 {
@@ -67,6 +68,9 @@ public class MainGameManager : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+
+		//TimeText_Subscription.text = "touch" + TouchUtil.GetTouch() + " ,mouse" + Input.GetMouseButton(0);
+		//CurrentValText_Subscription.text = TouchUtil.GetTouchWorldPosition( Camera.main ).ToString();
 
 		if( Input.GetKeyUp( KeyCode.Escape ) ) Button_GiveUp();
 

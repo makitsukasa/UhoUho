@@ -35,7 +35,8 @@ public class DropManager : MonoBehaviour
 	void Update()
 	{
 
-		if( TouchUtil.GetTouch() == TouchUtil.TouchInfo.Ended ) Erase();
+		if( TouchUtil.GetTouch() == TouchUtil.TouchInfo.Ended ||
+			linkedDrops.Count > 0 && !TouchUtil.GetTouch_Bool() ) Erase();
 
 	}
 
