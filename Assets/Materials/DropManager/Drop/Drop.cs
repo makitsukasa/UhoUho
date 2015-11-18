@@ -6,7 +6,8 @@ public class Drop : MonoBehaviour
 {
 
 	private DropManager DropManager;
-	ParticleSystem LinkEffect;
+	ParticleSystem LinkLightEffect;
+	public GameObject LinkLineEffect_GameObject;
 	Rigidbody2D Rigidbody2D;
 	private SpriteRenderer SpriteRenderer;
 	public GameObject BananaEffect_GameObject;
@@ -14,6 +15,8 @@ public class Drop : MonoBehaviour
 
 	private const float TouchRadius = 0.4f;
 	private const float LinkRadius = 2.0f;
+
+	public Drop linkTo;
 
 	private bool flag_IsTouched = false;
 	private float time_IsTouched;
@@ -28,8 +31,8 @@ public class Drop : MonoBehaviour
 
 		Rigidbody2D = this.GetComponent<Rigidbody2D>();
 
-		LinkEffect = transform.FindChild( "LinkEffect" ).gameObject.GetComponent<ParticleSystem>();
-		LinkEffect.Stop();
+		LinkLightEffect = transform.FindChild( "LinkLightEffect" ).gameObject.GetComponent<ParticleSystem>();
+		LinkLightEffect.Stop();
 
 		SpriteRenderer = this.gameObject.GetComponent<SpriteRenderer>();
 
@@ -66,13 +69,12 @@ public class Drop : MonoBehaviour
 			case DropType.BANANA3:
 				DropManager.AddLinkedDrop( this );
 				break;
-			default:
-				break;
 			}
 			return;
 		}
 		else if( DropManager.GetLastLinkedDrop().IsLinkable( this ) )
 		{
+			DropManager.GetLastLinkedDrop().linkTo = this;
 			DropManager.AddLinkedDrop( this );
 		}
 
@@ -81,22 +83,39 @@ public class Drop : MonoBehaviour
 	void Update_Draw()
 	{
 
-		if( !LinkEffect.isPlaying && DropManager.IsLinked( this ) )
+		if( !LinkLightEffect.isPlaying && DropManager.IsLinked( this ) )
 		{
-			LinkEffect.Play();
+			LinkLightEffect.Play();
 			return;
 		}
 
 		switch( GetTouch() )
 		{
 		case TouchUtil.TouchInfo.Began:
-			LinkEffect.Play();
+			LinkLightEffect.Play();
 			break;
 
 		case TouchUtil.TouchInfo.Ended:
-			LinkEffect.Stop();
+			LinkLightEffect.Stop();
 			break;
 		}
+
+		if( LinkLightEffect.isPlaying )
+		{
+
+			Vector3 from =this.transform.position;
+			Vector3 to;
+			if( linkTo == null ) to = Camera.main.ScreenToWorldPoint( Input.mousePosition );
+			else to = linkTo.transform.position;
+			Vector3 dir = to - from; dir.z = -2;
+			Debug.Log( "from" + from + "to" + to );
+			Quaternion qua = new Quaternion();
+			for( int i = 1; i <= 4; i++ )
+			{
+				Instantiate( LinkLineEffect_GameObject, from + dir * i / 5, qua );
+			}
+		}
+
 	}
 
 	public bool IsLinkable( Drop to )
@@ -120,7 +139,8 @@ public class Drop : MonoBehaviour
 		this.transform.position = new Vector3( Random.Range( -1.0f, 1.0f ), 9 + Random.Range( -0.5f, 0.5f ) );
 		this.Rigidbody2D.velocity = Vector2.zero;
 		flag_IsTouched = false;
-		LinkEffect.Stop();
+		linkTo = null;
+		LinkLightEffect.Stop();
 		InitDropType();
 	}
 
@@ -136,11 +156,11 @@ public class Drop : MonoBehaviour
 			break;
 		case DropType.BANANA2:
 			this.SetDropType( DropType.BANANA1 );
-			LinkEffect.Stop();
+			LinkLightEffect.Stop();
 			break;
 		case DropType.BANANA3:
 			this.SetDropType( DropType.BANANA2 );
-			LinkEffect.Stop();
+			LinkLightEffect.Stop();
 			break;
 		}
 
@@ -148,7 +168,7 @@ public class Drop : MonoBehaviour
 
 	public void UnLink()
 	{
-		LinkEffect.Stop();
+		LinkLightEffect.Stop();
 	}
 
 	public void InitDropType()

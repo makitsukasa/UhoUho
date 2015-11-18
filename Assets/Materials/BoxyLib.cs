@@ -56,19 +56,19 @@ namespace BoxyLib
 		//タッチポジションを取得(エディタと実機を考慮)
 		public static Vector3 GetTouchPosition()
 		{
-				if( Input.touchCount > 0 )
-				{
-					Vector2 touchPos = Input.GetTouch(0).position;
-					return new Vector3( touchPos.x, touchPos.y, 0 );
-				}
-				else if( GetTouch_Bool() )
-				{
-					return Input.mousePosition;
-				}
-				else
-				{
-					return Vector3.zero;
-				}
+			if( Input.touchCount > 0 )
+			{
+				Vector2 touchPos = Input.GetTouch(0).position;
+				return new Vector3( touchPos.x, touchPos.y, 0 );
+			}
+			else if( GetTouch_Bool() )
+			{
+				return Input.mousePosition;
+			}
+			else
+			{
+				return Vector3.zero;
+			}
 		}
 
 		public static Vector3 GetTouchWorldPosition( Camera camera )
@@ -343,6 +343,16 @@ namespace BoxyLib
 			return x * x + y * y;
 		}
 
+		public float Angle_Radius()
+		{
+			return Mathf.Atan2( y, x );
+		}
+
+		public float Angle_Degree()
+		{
+			return Angle_Radius() * Mathf.PI / 180;
+        }
+
 		public float LengthSq( Vector2F b )
 		{
 			return ( this.x - b.x ) * ( this.x - b.x ) + ( this.y - b.y ) * ( this.y - b.y );
@@ -351,6 +361,11 @@ namespace BoxyLib
 		public float LengthSq( Vector2 b )
 		{
 			return ( this.x - b.x ) * ( this.x - b.x ) + ( this.y - b.y ) * ( this.y - b.y );
+		}
+
+		public float Length()
+		{
+			return Mathf.Sqrt( this.LengthSq( new Vector2F() ) );
 		}
 
 		public float dot( Vector2F v )
