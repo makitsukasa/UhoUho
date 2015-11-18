@@ -52,7 +52,8 @@
      <Compile Include="Assets\Materials\DropManager\Drop\Drop.cs" />
      <Compile Include="Assets\Materials\DropManager\Drop\LinkLineEffect.cs" />
      <Compile Include="Assets\Materials\DropManager\DropManager.cs" />
-     <Compile Include="Assets\Materials\HowToPlayManager.cs" />
+     <Compile Include="Assets\Materials\HowToPlay\Drop_HowToPlay.cs" />
+     <Compile Include="Assets\Materials\HowToPlay\HowToPlayManager.cs" />
      <Compile Include="Assets\Materials\MainGameManager.cs" />
      <Compile Include="Assets\Materials\RecordManager.cs" />
      <Compile Include="Assets\Materials\RecordText.cs" />

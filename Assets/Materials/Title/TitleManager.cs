@@ -34,7 +34,12 @@ public class TitleManager : MonoBehaviour {
 		Application.LoadLevel( "StageSelect" );
 	}
 
-	public void Button_Achievement()
+	public void Button_HowToPlay()
+	{
+		Application.LoadLevel( "HowToPlay" );
+	}
+
+	public void Button_Record()
 	{
 		Application.LoadLevel( "Record" );
 	}
