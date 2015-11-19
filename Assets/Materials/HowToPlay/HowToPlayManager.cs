@@ -17,6 +17,7 @@ public class HowToPlayManager : MonoBehaviour
 	List<Drop_HowToPlay> linkedDrops = new List<Drop_HowToPlay>();
 
 	int currentPage = 0;
+	const int SixCharPage = 3;
 	const int LastPage = 6;
 
 	string GetText( int page )
@@ -25,7 +26,7 @@ public class HowToPlayManager : MonoBehaviour
 		string[] texts =
 		{
 			"ゴリラをなぞって消すゲームだよ",
-			"ゴ→リ→ラとなぞると消せるよ",
+			"ゴ→リ→ラとなぞると消せるよ！\nやってみよう！",
 			"ほら，消せたでしょ？",
 			"ゴ→リ→ラ→ゴ→リ→ラ→…ってなぞってみよう",
 			"バナナが出てきたね",
@@ -47,7 +48,7 @@ public class HowToPlayManager : MonoBehaviour
 		NextButton_Text.text = "次のページへ";
 		Subscription.text = GetText( currentPage );
 
-		for( int i = 0; i < 6; i++ )
+		for( int i = 0; i <= 2; i++ )
 		{
 			Vector3 pos = new Vector3( i - 2.5f, 10 );
 			GameObject hoge = Instantiate( Drop_GameObject, pos, new Quaternion() ) as GameObject;
@@ -66,6 +67,8 @@ public class HowToPlayManager : MonoBehaviour
 			linkedDrops.Count > 0 && !TouchUtil.GetTouch_Bool() )
 			Erase();
 
+		if( Input.GetKeyUp( KeyCode.Escape ) ) Button_Prev();
+
 	}
 
 
@@ -80,6 +83,17 @@ public class HowToPlayManager : MonoBehaviour
 
 		if( currentPage == 0 ) PrevButton_Text.text = "タイトルに戻る";
 		else PrevButton_Text.text = "前のページへ";
+		if( currentPage == 3 && allDrops.Count != 6 )
+		{
+			for( int i = 3; i <= 5; i++ )
+			{
+				Vector3 pos = new Vector3( i - 2.5f, 10 );
+				GameObject hoge = Instantiate( Drop_GameObject, pos, new Quaternion() ) as GameObject;
+				Drop_HowToPlay piyo = hoge.GetComponent<Drop_HowToPlay>();
+				allDrops.Add( piyo );
+				piyo.SetDropType_Start( (DropType)( i % 3 + 1 ) );
+			}
+		}
 		if( currentPage == LastPage ) NextButton_Text.text = "やってみる！";
 		else NextButton_Text.text = "次のページへ";
 
