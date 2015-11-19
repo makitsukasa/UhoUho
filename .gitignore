@@ -78,3 +78,7 @@ Thumbs.db
 # -------------[ Build ]------------------------ #
 *.html
 *.unity3d
+
+
+
+keystore/
