@@ -41,21 +41,13 @@ public class ClearManager : MonoBehaviour {
 			{
 				HighScore.text = "ハイスコア！";
 				SaveDataManager.SaveScore( SaveDataManager.GetCurrentScore() );
-				string str = ( SaveDataManager.GetHighScore( SaveDataManager.GameMode.Chars ) / 1000 ) + "秒" +
-							( SaveDataManager.GetHighScore( SaveDataManager.GameMode.Chars ) % 1000 ).ToString("000");
-				if( str == "999999秒999" ) str = "-";
-				Result.text = str;
-            }
+				Result.text = SaveDataManager.GetHighScoreString( SaveDataManager.GetGameMode() );
+			}
 			else
 			{
 				HighScore.text = " ";
-				string curt = ( SaveDataManager.GetCurrentScore() / 1000 ) + "秒" +
-							( SaveDataManager.GetCurrentScore() % 1000 ).ToString("000");
-				if( curt == "999999秒999" ) curt = "-";
-				string high = ( SaveDataManager.GetHighScore( SaveDataManager.GameMode.Chars ) / 1000 ) + "秒" +
-							( SaveDataManager.GetHighScore( SaveDataManager.GameMode.Chars ) % 1000 ).ToString("000");
-				if( high == "999999秒999" ) high = "-";
-				Result.text = curt + "\n" + "ハイスコア：" + high;
+				Result.text = SaveDataManager.GetCurrentScoreString( SaveDataManager.GetGameMode() ) + "\n" +
+								"ハイスコア：" + SaveDataManager.GetHighScoreString( SaveDataManager.GetGameMode() );
 			}
 		}
 		else
@@ -63,14 +55,14 @@ public class ClearManager : MonoBehaviour {
 			if( SaveDataManager.GetHighScore( SaveDataManager.GetGameMode() ) < SaveDataManager.GetCurrentScore() )
 			{
 				HighScore.text = "ハイスコア！";
-				SaveDataManager.SaveScore( SaveDataManager.GetCurrentScore() );
-				Result.text = SaveDataManager.GetCurrentScore().ToString();
+				SaveDataManager.SaveScore();
+				Result.text = SaveDataManager.GetHighScoreString( SaveDataManager.GetGameMode() );
 			}
 			else
 			{
 				HighScore.text = " ";
-				Result.text = SaveDataManager.GetCurrentScore() + "\n" +
-							"ハイスコア：" + SaveDataManager.GetHighScore( SaveDataManager.GetGameMode() );
+				Result.text = SaveDataManager.GetCurrentScoreString( SaveDataManager.GetGameMode() ) + "\n" +
+								"ハイスコア：" + SaveDataManager.GetHighScoreString( SaveDataManager.GetGameMode() );
 			}
 		}
 
@@ -91,6 +83,21 @@ public class ClearManager : MonoBehaviour {
 	public void Button_GoTitle()
 	{
 		Application.LoadLevel( "Title" );
+	}
+
+	public void Button_Tweet()
+	{
+		string str = "";
+		str += MainGameManager.GetGameModeString( SaveDataManager.GetGameMode() );
+		str += "を";
+		str += SaveDataManager.GetHighScoreString( SaveDataManager.GetGameMode() );
+		str += "でクリア！";
+		str += "\n";
+		str += "#UhoUho_Boxy";
+		str += "\n";
+		str += "https://play.google.com/store/apps/details?id=com.Boxy.UhoUho";
+		str += "\n";
+		Application.OpenURL( "http://twitter.com/intent/tweet?text=" + WWW.EscapeURL( str ) );
 	}
 
 	void OnDestroy()

@@ -48,7 +48,7 @@ public class RecordManager : MonoBehaviour {
 
 	public void Button_AuthorTwitter()
 	{
-		Application.OpenURL( "https://twitter.com/tsukasa_boxy/" );
+		Application.OpenURL( "http://twitter.com/intent/tweet?text=" + WWW.EscapeURL( ".@tsukasa_boxy #Boxy_UhoUho" ) );
 	}
 
 

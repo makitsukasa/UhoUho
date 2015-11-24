@@ -131,6 +131,46 @@ public class SaveDataManager : MonoBehaviour {
 		}
 	}
 
+	public static string GetHighScoreString( GameMode mode )
+	{
+		if( GetGameMode() == GameMode.Normal )
+		{
+			return GetHighScore( mode ).ToString() + "こ";
+		}
+		else if( GetGameMode() == GameMode.Chars )
+		{
+			string str = ( GetHighScore( GameMode.Chars ) / 1000 ) + "秒" +
+						( GetHighScore( GameMode.Chars ) % 1000 ).ToString("000");
+			if( str == "999999秒999" ) str = "-";
+			return str;
+		}
+		else if( GetGameMode() == GameMode.Banana )
+		{
+			return GetHighScore( mode ).ToString() + "バナナ";
+		}
+		else
+		{
+			return "";
+		}
+
+	}
+
+	public static string GetCurrentScoreString( GameMode mode )
+	{
+		if( GetGameMode() == GameMode.Chars )
+		{
+			string str = ( GetCurrentScore() / 1000 ) + "秒" +
+						( GetCurrentScore() % 1000 ).ToString("000");
+			if( str == "999999秒999" ) str = "-";
+			return str;
+		}
+		else
+		{
+			return GetCurrentScore().ToString();
+		}
+
+	}
+
 	public static void OnEnd( float playtime )
 	{
 		string str = GetKeyString( Key.PlayNum );

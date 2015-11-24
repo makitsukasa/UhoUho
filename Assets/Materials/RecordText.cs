@@ -46,11 +46,11 @@ public class RecordText : MonoBehaviour {
 			break;
 
 		case "TotalBanana":
-			Text.text = "いままでに消したバナナの数 " + SaveDataManager.Get( SaveDataManager.Key.BananaNum );
+			Text.text = "いままでに消したバナナの数 " + SaveDataManager.Get( SaveDataManager.Key.BananaNum ) + "バナナ";
 			break;
 
 		case "TotalPlayNum":
-			Text.text = "いままでのプレイ回数 " + SaveDataManager.Get( SaveDataManager.Key.PlayNum );
+			Text.text = "いままでのプレイ回数 " + SaveDataManager.Get( SaveDataManager.Key.PlayNum ) + "回";
 			break;
 
 		case "TotalPlayTime":
@@ -59,18 +59,18 @@ public class RecordText : MonoBehaviour {
 
 		case "HighScoreNormal":
 			Text.text = "とにかくゴリラのハイスコア " +
-				SaveDataManager.GetHighScore( SaveDataManager.GameMode.Normal );
+				SaveDataManager.GetHighScoreString( SaveDataManager.GameMode.Normal );
 			break;
 
 		case "HighScoreChars":
 			Text.text = "100ゴリラのハイスコア " +
-				( SaveDataManager.GetHighScore( SaveDataManager.GameMode.Chars ) / 1000 ) + "秒" +
-				( SaveDataManager.GetHighScore( SaveDataManager.GameMode.Chars ) % 1000 ).ToString( "000" );
+				SaveDataManager.GetHighScoreString( SaveDataManager.GameMode.Chars );
+				
 			break;
 
 		case "HighScoreBanana":
 			Text.text = "バナナマスターのハイスコア " +
-				SaveDataManager.GetHighScore( SaveDataManager.GameMode.Banana ) + "バナナ";
+				SaveDataManager.GetHighScoreString( SaveDataManager.GameMode.Banana );
 			break;
 
 		}

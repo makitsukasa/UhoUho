@@ -25,7 +25,7 @@ public class MainGameManager : MonoBehaviour
 		string[] text =
 		{
 			"いま\nこ",
-			"あと\n文字",
+			"あと\nこ",
 			"いま\nバナナ",
 			""
 		};
@@ -40,6 +40,19 @@ public class MainGameManager : MonoBehaviour
 			"残り\n秒",
 			"いま\n秒",
 			"残り\n秒",
+			""
+		};
+		return text[(int)GameMode];
+	}
+
+	public static string GetGameModeString( SaveDataManager.GameMode GameMode )
+	{
+		//public enum GameMode { Normal, Chars, Banana, Dummy };
+		string[] text =
+		{
+			"とにかくゴリラ",
+			"100ゴリラ",
+			"バナナマスター",
 			""
 		};
 		return text[(int)GameMode];
